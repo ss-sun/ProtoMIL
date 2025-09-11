@@ -28,4 +28,16 @@ The ProtoMIL approach consists of the following three stages.
 - For WSI classification, image features are first projected onto human-interpretable concept activation vectors *h*.
 - Inherent interpretable ProtoMIL is trained to generate predictions as linear combinations of input concepts, and provide self-explanations.
 - Users can perform interventions by perturbing the concept activation vectors.
-  
+
+## Installation
+```
+conda env create -f environment.yml
+conda activate protomil
+```
+## Datasets
+We perform experiments on the **Camelyon16** and **PANDA** datasets. Please find these datasets on their official websites. Please download both the WSI and the corresponding label mask in order to extract normal patches and tumor patches to create the probing image set.
+
+- **Camelyon16** (https://camelyon16.grand-challenge.org/Data/)
+
+- **PANDA** (https://panda.grand-challenge.org/data/)
+
