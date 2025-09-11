@@ -36,8 +36,21 @@ conda activate protomil
 ```
 ## Datasets
 We perform experiments on the **Camelyon16** and **PANDA** datasets. Please find these datasets on their official websites. Please download both the WSI and the corresponding label mask in order to extract normal patches and tumor patches to create the probing image set.
-
 - **Camelyon16** (https://camelyon16.grand-challenge.org/Data/)
-
 - **PANDA** (https://panda.grand-challenge.org/data/)
+  
+## Data preprocessing
+
+
+
+## Train Sparse autoencoder
+
+
+## Create prototypes for neurons and perform interpretation.
+
+## Project image features to concept space.
+
+## Train ProtoMIL
+
+## Generate local and global explanations.
 
