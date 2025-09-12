@@ -37,13 +37,10 @@ def common_init(args, disable_make_dirs=False):
     args.img_enc_name_for_saving = args.img_enc_name
 
     args.autoencoder_input_dim_dict = autoencoder_input_dim_dict
-
     args.ae_input_dim_dict_key = {}
     args.ae_input_dim_dict_key["img"] = f"{args.img_enc_name_for_saving}_{args.hook_points[0]}"
-
     args.save_dir = {}
     args.save_dir_sae_ckpts = {}
-
     args.save_dir["img"] = Path(osp.join(args.save_dir_root, f"{args.sae_dataset}/{args.img_enc_name_for_saving}/{args.hook_points[0]}/{args.config_name}"))
 
     if not disable_make_dirs:
@@ -67,7 +64,6 @@ def get_common_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("--sae_dataset", type=str, default='camelyon_panda', choices=["camelyon_panda"])
     parser.add_argument("--img_enc_name", type=str, default='conch', help='Name of the clip image encoder', choices=["conch"])
-
     parser.add_argument("--modality", type=str, default="img", choices=["img"])
     parser.add_argument("--l1_coeff", type=float, default=3e-4)
     # Adam parameters (set to the default ones here)
@@ -76,29 +72,20 @@ def get_common_parser():
     parser.add_argument("--adam_beta_2", type=float, default=0.999)
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--adam_weight_decay", type=float, default=0.0)
-
-    parser.add_argument('--hook_points', nargs='*',
-                        help='Name of the model hook points to get the activations from', default=['out'])
-    parser.add_argument("--resample_freq", type=int,
-                        default=500_000)
+    parser.add_argument('--hook_points', nargs='*', help='Name of the model hook points to get the activations from', default=['out'])
+    parser.add_argument("--resample_freq", type=int, default=500_000)
     parser.add_argument("--resample_dataset_size", type=int, default=819_200)
     parser.add_argument("--val_freq", type=int, default=50_000,help='number of samples after which to run validation')
-    parser.add_argument("--ckpt_freq", type=int, default=250_000,
-                        help='number of samples after which to save the checkpoint')
-
+    parser.add_argument("--ckpt_freq", type=int, default=250_000, help='number of samples after which to save the checkpoint')
     # SAE related
-    parser.add_argument("--train_sae_bs", type=int, default=4096,
-                        help="batch size to train SAE")
+    parser.add_argument("--train_sae_bs", type=int, default=4096, help="batch size to train SAE")
     parser.add_argument("--expansion_factor", type=int, default=4)
-    parser.add_argument("--num_epochs", type=int, default=1,
-                        help="number of epochs to train the SAE")
+    parser.add_argument("--num_epochs", type=int, default=200, help="number of epochs to train the SAE")
     parser.add_argument("--device", type=str, default='cuda')
     parser.add_argument("--seed", type=int, default=49)
     parser.add_argument("--save_suffix", type=str, default="")
-
-    parser.add_argument("--use_wandb", default=False)
+    parser.add_argument("--use_wandb", default=True)
     parser.add_argument("--wandb_entity", type=str, default="protomil")
-
     return parser
 
 

@@ -55,18 +55,34 @@ python scripts/prepare_sae_data.py
 ```
 
 ## Train Sparse autoencoder
-We use the sparse autoencoder implemented by (https://github.com/ai-safety-foundation/sparse_autoencoder) and reuse related code from (https://github.com/neuroexplicit-saar/discover-then-name)
+We use the sparse autoencoder (SAE) implemented by (https://github.com/ai-safety-foundation/sparse_autoencoder) and reuse related code from (https://github.com/neuroexplicit-saar/discover-then-name)
 We train SAE on the features from two datasets. 
+Please change the ""sae_dataset" in ```data_dir_dict``` to your own data directory. Then run the following command to train SAE. 
+
+```bash
+python train_sae.py
+```
+
+## Create prototypes for neurons and perform interpretation
+After the SAE is trained, we can create prototypes for each neuron in the latent space. The prototypes are created by selecting the top 10 patches with the highest activation values for each non-zero neuron.
+
+(a) We need to first build the probing image set. For each dataset, we randomly sample 10K normal patches and 10K tumor patches from the training set to create the probing image set. 
+```prepare_probing_imgs.py``` is the script for creating the probing set. Please change the ```dataset_dict``` to your own path to the WSIs and their masks, 
+and set the ```task``` to "get_basic_info", "extract_patches_panda", "extract_patches_camelyon16" to create the probing image set for two datasets. You can find more details about the function in the script.
+For reading the WSIs and masks, we use ASAP (https://computationalpathologygroup.github.io/ASAP/). 
+
+```bash
+python prepare_probing_imgs.py
+```
+
+(b) After the probing image set is created, we can create prototypes for each non-zero neuron. Using the script ```analyze_sae_space.py```
+
+Please change the ```sae_dataset``` and ```probing_dataset``` to your own path.
 
 
-## Create prototypes for neurons and perform interpretation.
-
-
-
-
-## Project image features to concept space.
+## Project image features to concept space
 
 ## Train ProtoMIL
 
-## Generate local and global explanations.
+## Generate local and global explanations
 

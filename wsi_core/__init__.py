@@ -1,0 +1,1 @@
+### implementation is from https://github.com/mahmoodlab/CLAM/tree/master/wsi_core
