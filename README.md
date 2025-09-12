@@ -40,13 +40,29 @@ We perform experiments on the **Camelyon16** and **PANDA** datasets. Please find
 - **PANDA** (https://panda.grand-challenge.org/data/)
   
 ## Data preprocessing
+To train SAE and ProtoMIL, we need to extract image features for WSIs, and save the WSI features as .pt file. For example, ```normal_001.pt```
+(a) For this work, we used the pipeline from CLAM (https://github.com/mahmoodlab/CLAM) to create patches and extract features. 
 
-
+You can also used the new whole-slide image processing toolkit Trident (https://github.com/mahmoodlab/TRIDENT). We used Histopathology-specific vision-language foundation model CONCH 1.0 for feature extraction.
+When running Trident, you can specify this patch encoder by adding `--patch_encoder conch_v1` to the following command.
+```bash
+python run_batch_of_slides.py --task feat --wsi_dir ./wsis --job_dir ./trident_processed --patch_encoder conch_v1 --mag 20 --patch_size 256 
+```
+(b) When using Trident, the extracted WSI features are saved as ```.h5``` file, e.g. ```normal_001.h5```. You can convert the ```.h5``` file into ```.pt``` format by running the script below, 
+making sure to update ```src_folders``` to point to your Trident output directories. Note that the features must be normalized with an L2 norm of 1.0, which is essential for training the SAE.
+```bash
+python scripts/prepare_sae_data.py
+```
 
 ## Train Sparse autoencoder
+We use the sparse autoencoder implemented by (https://github.com/ai-safety-foundation/sparse_autoencoder) and reuse related code from (https://github.com/neuroexplicit-saar/discover-then-name)
+We train SAE on the features from two datasets. 
 
 
 ## Create prototypes for neurons and perform interpretation.
+
+
+
 
 ## Project image features to concept space.
 
